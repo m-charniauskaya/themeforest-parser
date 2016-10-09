@@ -1,13 +1,14 @@
 <?php
-  $file = file_get_contents('https://agileui.com/demo/delight/demo/admin-template/index.html');
+  $downloadDir = 'downloads';
+  $link_html = '../../demo/admin-template/index.html';
+  $file = download_save_file($link_html, __DIR__.'/'.$downloadDir.'/'.substr($link_html,6));
   $dom = new DOMDocument();
   @$dom->loadHTML($file);
-  $dom->getElementsByTagName('link');
 
-  $downloadDir = 'downloads';
-  save_file(__DIR__.'/'.$downloadDir.'/index.html', $file);
-
-  function save_file ($path, $content){
+  function download_save_file ($link, $path){
+    $name = substr($link, 6);
+    $Download_link = 'https://agileui.com/demo/delight/'.$name;
+    $content = file_get_contents($Download_link);
     $folders = explode('/', $path);
     $pop = array_pop($folders);
     $i = '';
@@ -18,6 +19,7 @@
       }
     }
     file_put_contents ($i.$pop, $content);
+    return $content;
   }
 
       $links_css = array();
@@ -30,10 +32,7 @@
       }
 
         foreach ($links_css as $link) {
-          $Download_link_css = 'https://agileui.com/demo/delight/'.$name_css;
-          $css = file_get_contents($Download_link_css);
-          $name_css = substr($link, 6);
-          save_file (__DIR__.'/'.$downloadDir.'/'.$name_css, $css);
+          download_save_file ($link, __DIR__.'/'.$downloadDir.'/'.substr($link, 6));
         }
 
       $links_js = array();
@@ -44,15 +43,8 @@
       }
 
       foreach ($links_js as $link){
-        $Download_link_js = 'https://agileui.com/demo/delight/'.$name_js;
-        $js = file_get_contents($Download_link_js);
-        $name_js = substr($link, 6);
-        save_file (__DIR__.'/'.$downloadDir.'/'.$name_js, $js);
-        echo $name_js;
+        download_save_file($link, __DIR__.'/'.$downloadDir.'/'.substr($link, 6));
       }
 
-
-
-      @$dom->saveHTMLFile(__DIR__.'/'.$downloadDir.'/index.html');
 
 ?>

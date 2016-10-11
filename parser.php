@@ -81,5 +81,5 @@
         }
         copy ($download_img, __DIR__.'/'.$downloadDir.'/'.$i.$pop);
       }
-      @$dom->saveHTMLFile(__DIR__.'/'.$downloadDir.'/'.substr($link_html,6));
+      @$dom->saveHTMLFile(__DIR__.'/'.$downloadDir.'/index.html');
 ?>

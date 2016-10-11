@@ -1,9 +1,13 @@
 <?php
   $downloadDir = 'downloads';
-  $link_html = '../../demo/admin-template/index.html';
-  $file = download_save_file($link_html, __DIR__.'/'.$downloadDir.'/'.substr($link_html,6));
+  $file = file_get_contents('https://agileui.com/demo/delight/demo/admin-template/index.html');
   $dom = new DOMDocument();
   @$dom->loadHTML($file);
+
+  if (!is_dir(__DIR__.'/'.$downloadDir)){
+    mkdir(__DIR__.'/'.$downloadDir);
+  }
+  file_put_contents(__DIR__.'/'.$downloadDir.'/index.html', $file);
 
   function download_save_file ($link, $path){
     $name = substr($link, 6);
@@ -78,5 +82,4 @@
         copy ($download_img, __DIR__.'/'.$downloadDir.'/'.$i.$pop);
       }
       @$dom->saveHTMLFile(__DIR__.'/'.$downloadDir.'/'.substr($link_html,6));
-
 ?>

@@ -1,5 +1,10 @@
 <?php
-  $downloadDir = 'downloads';
+  require_once(__DIR__.'/PageParser.php');
+  $file = new PageParser('https://agileui.com/demo/delight/demo/admin-template/index.html');
+  $file->parse();
+
+
+/*  $downloadDir = 'downloads';
   $file = file_get_contents('https://agileui.com/demo/delight/demo/admin-template/index.html');
   $dom = new DOMDocument();
   @$dom->loadHTML($file);
@@ -81,5 +86,5 @@
         }
         copy ($download_img, __DIR__.'/'.$downloadDir.'/'.$i.$pop);
       }
-      @$dom->saveHTMLFile(__DIR__.'/'.$downloadDir.'/index.html');
+      @$dom->saveHTMLFile(__DIR__.'/'.$downloadDir.'/index.html');*/
 ?>

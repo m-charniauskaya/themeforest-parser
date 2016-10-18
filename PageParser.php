@@ -32,10 +32,12 @@
           mkdir($i);
         }
       }
-      if (is_string($content)){
-        file_put_contents ($i.$pop, $content);
-      } else {
-        copy ($Download_link, $this->path.'/'.$i.$pop);
+      if (!is_file($i.$pop)){
+        if (is_string($content)){
+          file_put_contents ($i.$pop, $content);
+        } else {
+          copy ($Download_link, $this->path.'/'.$i.$pop);
+        }
       }
       $this->dom->saveHTMLFile($this->path.'/index.html');
     }
@@ -93,20 +95,6 @@
 
       foreach ($links_img as $link){
         $this->saveFile($link, $this->path.'/'.substr($link, 6));
-      }
-      foreach ($links_img as $link){
-        $download_img = 'https://agileui.com/demo/delight/'.substr($link, 6);
-        $folders = explode('/', substr($link, 6));
-        $pop = array_pop($folders);
-        $i = '';
-
-        foreach ($folders as $folder){
-          $i = $i.$folder.'/';
-          if (!is_dir($this->path.'/'.$i)){
-            mkdir($this->path.'/'.$i);
-          }
-        }
-        copy ($download_img, $this->path.'/'.$i.$pop);
       }
     }
   }
